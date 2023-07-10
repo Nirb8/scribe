@@ -1,5 +1,6 @@
 import os
 import fileinput
+import time
 from dotenv import load_dotenv
 import discord
 import date_finder
@@ -70,5 +71,17 @@ def insert_at_header(header, content, path):
             line += content + os.linesep
         print(line, end="")
     
-    
+@bot.slash_command(name="push", description="does the git stuff for synchro")
+async def push(ctx):
+    commit_msg = "update from scribe"
+    os.chdir(os.getenv('FOLDER_PATH'))
+    os.system("git pull")
+    time.sleep(3)
+    os.system("git add *")
+    time.sleep(2)
+    os.system(f"git commit -m \"{commit_msg}\"")
+    time.sleep(2)
+    os.system("git push")
+    await ctx.respond(content=f"pushed to github")
+
 bot.run(os.getenv('TOKEN'))
