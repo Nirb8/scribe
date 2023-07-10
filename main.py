@@ -73,6 +73,7 @@ def insert_at_header(header, content, path):
     
 @bot.slash_command(name="push", description="does the git stuff for synchro")
 async def push(ctx):
+    await ctx.respond(content=f"pushing changes to github")
     commit_msg = "update from scribe"
     os.chdir(os.getenv('FOLDER_PATH'))
     os.system("git pull")
@@ -82,6 +83,5 @@ async def push(ctx):
     os.system(f"git commit -m \"{commit_msg}\"")
     time.sleep(2)
     os.system("git push")
-    await ctx.respond(content=f"pushed to github")
 
 bot.run(os.getenv('TOKEN'))
