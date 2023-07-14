@@ -47,7 +47,7 @@ async def mtt(ctx, content):
     else:
         file.write(f", {content}")
     await ctx.respond(content=f"added ```{content}``` to mtt")
-    await push(ctx=ctx, shouldRespond=False)
+    await push(ctx=ctx, should_respond=False)
 
 
 @bot.slash_command(name="imp", description="Important things")
@@ -56,7 +56,7 @@ async def imp(ctx, content):
 
     insert_at_header("## important things:", content, path)
     await ctx.respond(content=f"added ```{content}``` to imp")
-    await push(ctx=ctx, shouldRespond=False)
+    await push(ctx=ctx, should_respond=False)
 
 
 @bot.slash_command(name="ttli", description="Important things")
@@ -65,7 +65,7 @@ async def ttli(ctx, content):
 
     insert_at_header("## things to look into:", content, path)
     await ctx.respond(content=f"added ```{content}``` to ttli")
-    await push(ctx=ctx, shouldRespond=False)
+    await push(ctx=ctx, should_respond=False)
 
 
 @bot.slash_command(name="stf", description="Important things")
@@ -74,7 +74,7 @@ async def stf(ctx, content):
 
     insert_at_header("stuff that happened today:", content, path)
     await ctx.respond(content=f"added ```{content}``` to stf")
-    await push(ctx=ctx, shouldRespond=False)
+    await push(ctx=ctx, should_respond=False)
 
 
 def insert_at_header(header, content, path):
