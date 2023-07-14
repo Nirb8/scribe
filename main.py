@@ -61,7 +61,8 @@ async def stf(ctx, content):
     
     insert_at_header("stuff that happened today:", content, path)
     await ctx.respond(content=f"added ```{content}``` to stf")
-
+    await push(ctx=ctx, shouldRespond = False)
+    
 
 
 def insert_at_header(header, content, path):
@@ -70,10 +71,12 @@ def insert_at_header(header, content, path):
         if header in line :
             line += content + os.linesep
         print(line, end="")
+
     
 @bot.slash_command(name="push", description="does the git stuff for synchro")
-async def push(ctx):
-    await ctx.respond(content=f"pushing changes to github")
+async def push(ctx, should_respond = True):
+    if should_respond:
+        await ctx.respond(content="pushing changes to github")
     commit_msg = "update from scribe"
     os.chdir(os.getenv('FOLDER_PATH'))
     os.system("git pull")
