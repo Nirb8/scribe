@@ -4,6 +4,7 @@ import time
 from dotenv import load_dotenv
 import discord
 import date_finder
+import shutil
 
 load_dotenv()
 bot = discord.Bot()
@@ -71,19 +72,25 @@ async def ttli(ctx, content):
 @bot.slash_command(name="stf", description="Important things")
 async def stf(ctx, content):
     path = f"{os.getenv('FOLDER_PATH')}{date_finder.get_current_daily_note_filename()}"
-
+    
     insert_at_header("stuff that happened today:", content, path)
     await ctx.respond(content=f"added ```{content}``` to stf")
     await push(ctx=ctx, should_respond=False)
 
 
 def insert_at_header(header, content, path):
+    create_daily_note_if_not_exist(path)
     for line in fileinput.FileInput(path, inplace=True):
         content = f"- {content}"
         if header in line:
             line += content + os.linesep
         print(line, end="")
 
+def create_daily_note_if_not_exist(path):
+    if os.path.exists(path):
+        return
+    template_path = f"{os.getenv('FOLDER_PATH')}template.md"
+    shutil.copy2(template_path, path)
 
 @bot.slash_command(name="push", description="does the git stuff for synchro")
 async def push(ctx, should_respond=True):
