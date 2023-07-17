@@ -38,6 +38,8 @@ async def view(ctx):
 @bot.slash_command(name="mtt", description="Message to Tomorrow")
 async def mtt(ctx, content):
     path = f"{os.getenv('FOLDER_PATH')}{date_finder.get_current_daily_note_filename()}"
+    create_daily_note_if_not_exist(path)
+    
     file = open(path, "r", encoding="UTF-8")
     file_content = file.read()
     file.close()
