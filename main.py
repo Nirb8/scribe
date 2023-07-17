@@ -89,6 +89,7 @@ def insert_at_header(header, content, path):
 def create_daily_note_if_not_exist(path):
     if os.path.exists(path):
         return
+    open(f"{os.getenv('FOLDER_PATH')}template.md", "x")
     template_path = f"{os.getenv('FOLDER_PATH')}template.md"
     shutil.copy2(template_path, path)
 
